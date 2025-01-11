@@ -1,0 +1,41 @@
+<div class="container mt-5">
+  <div class="card shadow" style="border: 1px solid rgba(0, 0, 0, 0.1);">
+    <div class="card-body">
+      <h1 class="text-center">Usuarios</h1>
+
+      <button class="btn btn-primary mb-4" (click)="openModal()">Agregar Usuario</button>
+
+      <div *ngIf="users.length === 0; else userTable" class="text-center mt-4">
+        <p>No hay usuarios disponibles. Agrega uno nuevo.</p>
+      </div>
+
+      <ng-template #userTable>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Nombre</th>
+              <th>Correo</th>
+              <th>Edad</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.name }}</td>
+              <td>{{ user.email }}</td>
+              <td>{{ user.age }}</td>
+              <td>
+                <button class="btn btn-warning btn-sm me-2" (click)="openModal(user)">Editar</button>
+                <button class="btn btn-danger btn-sm" (click)="deleteUser(user.id)">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-template>
+
+      <app-user-form *ngIf="isModalOpen" [user]="selectedUser || { name: '', email: '', age: 0 }"
+        (formSubmit)="handleFormSubmit()" (closeModal)="closeModal()">
+      </app-user-form>
+    </div>
+  </div>
+</div>

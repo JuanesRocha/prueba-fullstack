@@ -1,0 +1,65 @@
+<div class="modal-backdrop" (click)="closeModal.emit()"></div>
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content shadow">
+    <div class="modal-header">
+      <h5 class="modal-title">{{ user.id ? 'Editar Usuario' : 'Agregar Usuario' }}</h5>
+    </div>
+    <div class="modal-body">
+      <form #userForm="ngForm" (ngSubmit)="saveUser()" novalidate>
+        <div class="mb-3">
+          <label for="name" class="form-label">Nombre</label>
+          <input
+            type="text"
+            id="name"
+            class="form-control"
+            [(ngModel)]="user.name"
+            name="name"
+            #name="ngModel"
+            required
+          />
+          <div class="text-danger" *ngIf="name.invalid && name.touched">
+            El nombre es obligatorio.
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Correo</label>
+          <input
+            type="email"
+            id="email"
+            class="form-control"
+            [(ngModel)]="user.email"
+            name="email"
+            #email="ngModel"
+            required
+            email
+          />
+          <div class="text-danger" *ngIf="email.invalid && email.touched">
+            <div *ngIf="email.errors?.['required']">El correo es obligatorio.</div>
+            <div *ngIf="email.errors?.['email']">El formato del correo no es válido.</div>
+          </div>
+        </div>
+        <div class="mb-3">
+          <label for="age" class="form-label">Edad</label>
+          <input
+            type="number"
+            id="age"
+            class="form-control"
+            [(ngModel)]="user.age"
+            name="age"
+            #age="ngModel"
+            required
+          />
+          <div class="text-danger" *ngIf="age.invalid && age.touched">
+            La edad es obligatoria.
+          </div>
+        </div>
+        <div class="d-flex justify-content-end">
+          <button type="button" class="btn btn-secondary me-2" (click)="closeModal.emit()">Cancelar</button>
+          <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">
+            {{ user.id ? 'Actualizar' : 'Guardar' }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
