@@ -1,0 +1,5 @@
+<div *ngFor="let usuario of usuarios">
+    <input type="text" [value]="usuario.nombre" readonly>
+    <input type="text" [value]="usuario.correo" readonly>
+    <input type="number" [value]="usuario.edad" readonly>
+</div>
